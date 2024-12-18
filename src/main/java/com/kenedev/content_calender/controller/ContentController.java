@@ -3,6 +3,7 @@ package com.kenedev.content_calender.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,12 +43,18 @@ private final ContentCollectionRepository repository;
     repository.save(content);
   }
 
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   @PutMapping("/{id}")
   public void update(@RequestBody Content content, @PathVariable Integer id) {
     if(!repository.existsById(id)) {
-
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found");
     }
-
     repository.save(content);
+  }
+
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable Integer id) {
+    repository.delete(id);
   }
 }

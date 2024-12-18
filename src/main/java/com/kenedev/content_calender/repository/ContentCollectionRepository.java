@@ -44,13 +44,25 @@ public class ContentCollectionRepository {
         LocalDateTime.now(),
         null,
         "");
+    Content d = new Content(2,
+        "My second blog post",
+        "This is my second blog post",
+        Status.IN_PROGRESS,
+        Type.COURSE,
+        LocalDateTime.now(),
+        null,
+        "");
 
     contentList.add(c);
+    contentList.add(d);
   }
 
   public boolean existsById(Integer id) {
     return contentList.stream().filter(c -> c.id().equals(id)).count() == 1;
+  }
 
+  public void delete(Integer id) {
+    contentList.removeIf(c -> c.id().equals(id));
   }
 
 }
