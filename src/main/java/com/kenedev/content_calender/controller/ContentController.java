@@ -3,6 +3,7 @@ package com.kenedev.content_calender.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,11 @@ import org.springframework.web.server.ResponseStatusException;
 import com.kenedev.content_calender.model.Content;
 import com.kenedev.content_calender.repository.ContentCollectionRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/content")
+@CrossOrigin
 public class ContentController {
   
 private final ContentCollectionRepository repository;
@@ -39,7 +43,7 @@ private final ContentCollectionRepository repository;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("")
-  public void create(@RequestBody Content content) {
+  public void create(@Valid @RequestBody Content content) {
     repository.save(content);
   }
 
